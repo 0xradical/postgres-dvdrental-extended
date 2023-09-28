@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_dvdrental_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dvdrental
+    ports:
+      - "54321:5432"
+    volumes:
+      - postgres_dvdrental_data:/var/lib/postgresql/data
+      - ./dvdrental.tar.gz:/var/dvdrental.tar.gz
+      - ./scripts/load-data.sh:/docker-entrypoint-initdb.d/0.sh
+
+volumes:
+  postgres_dvdrental_data:
